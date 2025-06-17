@@ -1,0 +1,352 @@
+@import "tailwindcss";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base {
+    body,
+    .MainBox.ARIARoleMain {
+        @apply bg-gray-50 text-gray-900 font-sans text-[13px];
+    }
+
+    .SidebarColumn {
+        @apply bg-gray-100;
+    }
+
+    .ContentColumn {
+        @apply bg-white;
+    }
+}
+
+@layer components {
+    /* region Navigation */
+    /* Header / Toolbar */
+    #Header.ARIARoleBanner {
+        @apply flex items-center justify-between bg-blue-600 h-[200px] px-4;
+    }
+
+    #Header .ToolBar {
+        @apply flex items-center space-x-4 h-full;
+    }
+
+    .ToolBarItemSeparator {
+        @apply w-px bg-white h-6;
+    }
+
+    .UserAvatar {
+        @apply flex items-center space-x-2;
+    }
+
+    .UserAvatar a {
+        @apply block w-8 h-8 rounded-full bg-teal-500 text-white flex items-center justify-center;
+    }
+
+    .UserAvatar .Initials {
+        @apply text-sm font-medium;
+    }
+
+    .UserAvatar div {
+        @apply hidden md:flex flex-col text-white text-[13px];
+    }
+
+    .UserAvatar div a {
+        @apply text-[13px] text-white hover:underline;
+    }
+
+    .LogoutButton i,
+    .UserAvatar i.fa-cog {
+        @apply mr-1;
+    }
+
+    .ToolBarItemSeparator + li {
+        @apply ml-2;
+    }
+
+    .QueueView a,
+    .EscalationView a,
+    .PhoneTicket a,
+    .Locked a {
+        @apply flex items-center text-white text-[13px] hover:bg-blue-700 px-2 py-1 rounded;
+    }
+
+    .Counter {
+        @apply ml-1 bg-white text-blue-600 text-xs rounded-full w-5 h-5 flex items-center justify-center;
+    }
+
+    .Extended.SearchFulltext form {
+        @apply h-full;
+    }
+
+    .Extended.SearchFulltext input[type="text"] {
+        @apply h-8 rounded bg-white text-gray-900 px-2 placeholder-gray-400;
+    }
+
+    /* Navigation Bar */
+    /* Container zurücksetzen und neu stylen */
+    #NavigationContainer {
+        @apply !bg-white !shadow-sm !rounded !px-4 !py-2 !mt-2 !m-0 !p-0;
+    }
+
+    /* UL selbst zurücksetzen, Flex-Layout aufsetzen */
+    #Navigation {
+        @apply !flex !items-center !space-x-6 !bg-transparent !p-0 !m-0;
+    }
+
+    /* LI zurücksetzen */
+    #Navigation > li {
+        @apply !relative !m-0 !p-0;
+    }
+
+    /* Top-Level Links komplett neu stylen */
+    #Navigation > li > a {
+        @apply !block !text-gray-800 !font-medium !px-2 !py-1 !bg-transparent hover:!text-blue-600;
+    }
+
+    /* Aktives Element klar markieren */
+    #Navigation li[aria-expanded="true"] > a {
+        @apply !text-blue-600 !underline;
+    }
+
+    /* Sub-Menü: komplett resetten und neu stylen */
+    #Navigation li ul {
+        @apply !absolute !left-0 !top-full !bg-white !mt-1 !shadow-lg !rounded !border !border-gray-200 !hidden !m-0 !p-0;
+    }
+
+    #Navigation li[aria-expanded="true"] ul {
+        @apply !block;
+    }
+
+    /* Sub-Menü-Items */
+    #Navigation li ul li {
+        @apply !px-4 !py-2 !whitespace-nowrap !m-0;
+    }
+
+    #Navigation li ul li a {
+        @apply !text-gray-800 hover:!text-blue-600 !bg-transparent !px-0 !py-0;
+    }
+
+    /* Such-Icon / Such-Link am Ende */
+    #Navigation .Search {
+        @apply !ml-auto !text-gray-800 hover:!text-blue-600 !bg-transparent;
+    }
+
+    /* endregion Navigation */
+    /* region Sidebar widget */
+    .SidebarColumn .WidgetSimple {
+        @apply border-0 mb-4;
+    }
+
+    .SidebarColumn .WidgetSimple .Header {
+        @apply bg-transparent px-2.5 py-2 border-b-2 border-gray-400;
+    }
+
+    .SidebarColumn .WidgetSimple .Header h2 {
+        @apply text-[14px] text-gray-900 m-0;
+    }
+
+    .SidebarColumn .WidgetSimple .Content {
+        @apply px-2.5 py-2;
+    }
+
+    .SidebarColumn .ActionList li + li {
+        @apply mt-1;
+    }
+
+    .SidebarColumn .ActionList a {
+        @apply text-blue-600 no-underline;
+    }
+
+    .SidebarColumn .ActionList a:hover {
+        @apply underline;
+    }
+
+    /* endregion Sidebar widget */
+    /* Main content widget */
+    .ContentColumn .WidgetSimple .Header {
+        @apply bg-transparent pt-1.5 pb-1.5 border-b-2 border-gray-400;
+    }
+
+    .ContentColumn .WidgetSimple .Header h2 {
+        @apply text-[16px] text-gray-900 mb-1;
+    }
+
+    .ContentColumn .WidgetSimple .Content {
+        @apply pt-2.5 pb-2.5;
+    }
+
+    /* Forms */
+    fieldset.TableLike {
+        @apply border-0 m-0 mb-4 p-0;
+    }
+
+    fieldset.TableLike label {
+        @apply block font-medium text-gray-900 mb-1;
+    }
+
+    fieldset.TableLike.FixedLabel label {
+        @apply float-left w-1/3 mb-0;
+    }
+
+    fieldset.TableLike.FixedLabel .Field {
+        @apply ml-[32%];
+    }
+
+    fieldset.TableLike .Mandatory .Marker {
+        @apply text-red-600;
+    }
+
+    fieldset.TableLike .Field {
+        @apply mb-2.5;
+    }
+
+    .FieldExplanation {
+        @apply text-[90%] text-gray-500 my-2.5;
+    }
+
+    .Warning {
+        @apply text-amber-400;
+    }
+
+    .Hidden {
+        @apply hidden;
+    }
+
+    /* Inputs & selects */
+    input[type="text"],
+    input[type="password"],
+    textarea,
+    select {
+        @apply bg-white text-gray-900 border border-gray-500 rounded px-2 py-1 text-[12px];
+    }
+
+    input.W50pc {
+        @apply w-1/2;
+    }
+
+    input.W100pc {
+        @apply w-full;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+        @apply border-blue-600 outline-none ring-2 ring-blue-200;
+    }
+
+    input[readonly] {
+        @apply bg-gray-200 text-gray-500;
+    }
+
+    /* Validation */
+    input.Validate_Required.ServerError,
+    input.Validate_Required.ShowWarning {
+        @apply border-red-600 bg-red-50;
+    }
+
+    .TooltipErrorMessage {
+        @apply text-red-600 text-[90%] my-2.5;
+    }
+
+    .TooltipErrorMessage p {
+        @apply m-0;
+    }
+
+    /* Buttons */
+    .CallForAction {
+        @apply inline-block bg-gray-500 text-white border border-gray-500 rounded px-3 py-1 cursor-pointer transition;
+    }
+
+    .CallForAction:hover,
+    .CallForAction:focus {
+        @apply bg-gray-400;
+    }
+
+    .CallForAction.Primary {
+        @apply bg-blue-600 border-blue-600;
+    }
+
+    .CallForAction.Primary:hover,
+    .CallForAction.Primary:focus {
+        @apply bg-blue-700;
+    }
+
+    /* Tables */
+    table.DataTable,
+    table.TableSmall {
+        @apply w-full border-collapse;
+    }
+
+    table.DataTable thead th,
+    table.TableSmall thead th {
+        @apply bg-blue-600 text-white text-left px-2 py-2 border-0;
+    }
+
+    table.DataTable tbody td,
+    table.TableSmall tbody td {
+        @apply px-2 py-2 border-b border-gray-500;
+    }
+
+    table.DataTable tbody tr:nth-child(even),
+    table.TableSmall tbody tr:nth-child(even) {
+        @apply bg-gray-50;
+    }
+
+    table.DataTable tbody tr:hover,
+    table.TableSmall tbody tr:hover {
+        @apply bg-gray-100;
+    }
+
+    .TableLike ul {
+        @apply list-none p-0 m-0;
+    }
+
+    .TableLike li.Header {
+        @apply font-bold border-b-2 border-gray-500;
+    }
+
+    .TableLike li {
+        @apply py-1 border-b border-gray-500;
+    }
+
+    .TableLike li:nth-child(even) {
+        @apply bg-gray-50;
+    }
+
+    .TableLike li:hover {
+        @apply bg-gray-100;
+    }
+
+    /* Message boxes */
+    .MessageBox {
+        @apply rounded px-4 py-3 my-2.5;
+    }
+
+    .MessageBox.Info {
+        @apply bg-blue-100 text-blue-900;
+    }
+
+    .MessageBox.Success,
+    .MessageBox.Confirmation {
+        @apply bg-green-100 text-green-900;
+    }
+
+    .MessageBox.Error {
+        @apply bg-red-100 text-red-900;
+    }
+
+    .MessageBox.Warning,
+    .MessageBox.Notice {
+        @apply bg-amber-100 text-amber-900;
+    }
+
+    .MessageBox a {
+        @apply text-gray-900 underline;
+    }
+
+    /* Footer */
+    #Footer {
+        @apply bg-gray-50 text-gray-500 text-[90%] text-center px-4 py-2 border-t border-gray-500;
+    }
+}

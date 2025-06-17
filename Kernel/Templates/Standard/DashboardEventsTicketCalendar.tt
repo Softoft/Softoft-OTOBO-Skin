@@ -1,0 +1,53 @@
+# --
+# OTOBO is a web-based ticketing system for service organisations.
+# --
+# Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
+# Copyright (C) 2019-2024 Rother OSS GmbH, https://otobo.io/
+# --
+# This program is free software: you can redistribute it and/or modify it under
+# the terms of the GNU General Public License as published by the Free Software
+# Foundation, either version 3 of the License, or (at your option) any later version.
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <https://www.gnu.org/licenses/>.
+# --
+
+[% RenderBlockStart("CalendarDiv") %]
+<div style="width: [% Data.CalendarWidth | html %]%; margin: 0 auto; z-index: 10;" id='calendar'></div>
+[% RenderBlockEnd("CalendarDiv") %]
+
+<div class="Hidden" >
+
+[% RenderBlockStart("EventInfo") %]
+    <div class="EventDetails" id="event-content-[% Data.ID | html %]">
+        <h3>[% Translate("Event Information") | html %]</h3>
+        <fieldset class="TableLike">
+
+[% RenderBlockStart("EventTicketFieldContainer") %]
+            <div class="SpacingTopSmall"></div>
+            <h4>[% Translate("Ticket fields") | html %]</h4>
+            <div class="Clear"></div>
+[% RenderBlockStart("CalendarEventInfoTicketFieldElement") %]
+            <label>[% Translate(Data.InfoLabel) | html %]:</label>
+            <p class="Value">[% Data.InfoValue | truncate(50) | html %]</p>
+            <div class="Clear"></div>
+[% RenderBlockEnd("CalendarEventInfoTicketFieldElement") %]
+[% RenderBlockEnd("EventTicketFieldContainer") %]
+
+[% RenderBlockStart("EventDynamicFieldContainer") %]
+            <div class="SpacingTopSmall"></div>
+            <h4>[% Translate("Dynamic fields") | html %]</h4>
+            <div class="Clear"></div>
+[% RenderBlockStart("CalendarEventInfoDynamicFieldElement") %]
+            <label>[% Translate(Data.InfoLabel) | html %]:</label>
+            <p class="Value">[% Data.InfoValue | truncate(50) | html %]</p>
+            <div class="Clear"></div>
+[% RenderBlockEnd("CalendarEventInfoDynamicFieldElement") %]
+[% RenderBlockEnd("EventDynamicFieldContainer") %]
+        </fieldset>
+    </div>
+[% RenderBlockEnd("EventInfo") %]
+
+</div>

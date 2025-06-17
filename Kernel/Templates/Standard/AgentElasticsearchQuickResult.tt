@@ -1,0 +1,127 @@
+# --
+# OTOBO is a web-based ticketing system for service organisations.
+# --
+# Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
+# Copyright (C) 2019-2024 Rother OSS GmbH, https://otobo.io/
+# --
+# This program is free software: you can redistribute it and/or modify it under
+# the terms of the GNU General Public License as published by the Free Software
+# Foundation, either version 3 of the License, or (at your option) any later version.
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <https://www.gnu.org/licenses/>.
+# --
+
+<div class="InnerContent">
+    <form action="[% Env("CGIHandle") %]" method="post" id="ElasticsearchQuickResult">
+        <input type="hidden" name="Action" value="[% Env("Action") %]"/>
+        <input type="hidden" name="Subaction" value="Redirect"/>
+
+[% IF Data.Tickets %]
+        <h3>[% Translate("Tickets") | html  %]</h3>
+        <table class="TableSmall NoCellspacing">
+            <thead>
+                <tr>
+[% RenderBlockStart("TicketHeader") %]
+                    <th class="OverviewHeader">
+                        <p name="OverviewControl"  title="[% Translate(Data.Header) | html  %]">[% Translate(Data.Header) | html  %]</p>
+                    </th>
+[% RenderBlockEnd("TicketHeader") %]
+                </tr>
+            </thead>
+            <tbody>
+[% RenderBlockStart("RecordTicket") %]
+                <tr class="MasterAction">
+[% RenderBlockStart("TicketEntry") %]
+                    <td>
+                        <a href="[% Env("Baselink") %]Action=AgentTicketZoom;TicketID=[% Data.TicketID | uri %]" title="[% Data.Title | html %]" class="MasterActionLink">[% Data.Entry | html %]</a>
+                    </td>
+[% RenderBlockEnd("TicketEntry") %]
+                </tr>
+[% RenderBlockEnd("RecordTicket") %]
+            </tbody>
+        </table>
+[% END %]
+
+[% IF Data.Companies %]
+        <h3>[% Translate("Customers") | html  %]</h3>
+        <table class="TableSmall NoCellspacing">
+            <thead>
+                <tr>
+[% RenderBlockStart("CompanyHeader") %]
+                    <th class="OverviewHeader">
+                        <p name="OverviewControl"  title="[% Translate(Data.Header) | html  %]">[% Translate(Data.Header) | html  %]</p>
+                    </th>
+[% RenderBlockEnd("CompanyHeader") %]
+                </tr>
+            </thead>
+            <tbody>
+[% RenderBlockStart("RecordCustomer") %]
+                <tr class="MasterAction">
+[% RenderBlockStart("CompanyEntry") %]
+                    <td>
+                        <a href="[% Env("Baselink") %]Action=AgentCustomerInformationCenter;CustomerID=[% Data.CustomerKey | uri %]" title="[% Data.CustomerKey | html %]" class="MasterActionLink">[% Data.Entry | html %]</a>
+                    </td>
+[% RenderBlockEnd("CompanyEntry") %]
+                </tr>
+[% RenderBlockEnd("RecordCustomer") %]
+            </tbody>
+        </table>
+[% END %]
+
+[% IF Data.CustomerUsers %]
+        <h3>[% Translate("Customer Users") | html  %]</h3>
+        <table class="TableSmall NoCellspacing">
+            <thead>
+                <tr>
+[% RenderBlockStart("CustomerUserHeader") %]
+                    <th class="OverviewHeader">
+                        <p name="OverviewControl"  title="[% Translate(Data.Header) | html  %]">[% Translate(Data.Header) | html  %]</p>
+                    </th>
+[% RenderBlockEnd("CustomerUserHeader") %]
+                </tr>
+            </thead>
+            <tbody>
+[% RenderBlockStart("RecordCustomerUser") %]
+                <tr class="MasterAction">
+[% RenderBlockStart("CustomerUserEntry") %]
+                    <td>
+                        <a href="[% Env("Baselink") %]Action=AgentCustomerUserInformationCenter;CustomerUserID=[% Data.CustomerUserKey | uri %]" title="[% Data.CustomerUserKey | html %]" class="MasterActionLink">[% Data.Entry | html %]</a>
+                    </td>
+[% RenderBlockEnd("CustomerUserEntry") %]
+                </tr>
+[% RenderBlockEnd("RecordCustomerUser") %]
+            </tbody>
+        </table>
+[% END %]
+
+[% IF Data.ConfigItems %]
+        <h3>[% Translate("ConfigItems") | html  %]</h3>
+        <table class="TableSmall NoCellspacing">
+            <thead>
+                <tr>
+[% RenderBlockStart("ConfigItemHeader") %]
+                    <th class="OverviewHeader">
+                        <p name="OverviewControl"  title="[% Translate(Data.Header) | html  %]">[% Translate(Data.Header) | html  %]</p>
+                    </th>
+[% RenderBlockEnd("ConfigItemHeader") %]
+                </tr>
+            </thead>
+            <tbody>
+[% RenderBlockStart("RecordConfigItem") %]
+                <tr class="MasterAction">
+[% RenderBlockStart("ConfigItemEntry") %]
+                    <td>
+                        <a href="[% Env("Baselink") %]Action=AgentITSMConfigItemZoom;ConfigItemID=[% Data.ConfigItemID | uri %]" title="[% Data.Title | html %]" class="MasterActionLink">[% Data.Entry | html %]</a>
+                    </td>
+[% RenderBlockEnd("ConfigItemEntry") %]
+                </tr>
+[% RenderBlockEnd("RecordConfigItem") %]
+            </tbody>
+        </table>
+[% END %]
+
+    </form>
+</div>

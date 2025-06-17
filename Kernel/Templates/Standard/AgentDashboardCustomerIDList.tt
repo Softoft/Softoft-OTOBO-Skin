@@ -1,0 +1,80 @@
+# --
+# OTOBO is a web-based ticketing system for service organisations.
+# --
+# Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
+# Copyright (C) 2019-2024 Rother OSS GmbH, https://otobo.io/
+# --
+# This program is free software: you can redistribute it and/or modify it under
+# the terms of the GNU General Public License as published by the Free Software
+# Foundation, either version 3 of the License, or (at your option) any later version.
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <https://www.gnu.org/licenses/>.
+# --
+
+[% RenderBlockStart("ContentLargeCustomerIDListNavBar") %]
+<span class="Pagination">
+    [% Data.SiteNavBar %]
+</span>
+[% RenderBlockEnd("ContentLargeCustomerIDListNavBar") %]
+[% RenderBlockStart("ContentLargeCustomerIDAdd") %]
+<h2><a class="CallForAction" href="[% Env("Baselink") %]Action=AdminCustomerUserCustomer;Subaction=CustomerUser;ID=[% Data.CustomerUserID | uri %]"><span><i class="fa fa-plus-square"></i> [% Translate("Change Customer Relations") | html %]</span></a></h2>
+[% RenderBlockEnd("ContentLargeCustomerIDAdd") %]
+
+<table class="DataTable">
+    <thead>
+        <tr>
+            <th>[% Translate("Customer ID") | html %]</th>
+            <th>[% Translate("Name") | html %]</th>
+            <th>[% Translate("Open") | html %]</th>
+            <th>[% Translate("Closed") | html %]</th>
+        [% IF Data.EditCustomerIDPermission %]
+            <th class="Center">[% Translate("Edit") | html %]</th>
+        [% END %]
+        </tr>
+    </thead>
+    <tbody>
+[% RenderBlockStart("ContentLargeCustomerIDListRow") %]
+        <tr>
+            <td>
+                <a href="[% Env("Baselink") %]Action=AgentCustomerInformationCenter;CustomerID=[% Data.CustomerID | uri %]" class="MasterActionLink">
+                    [% Data.CustomerID | html %]
+                </a>
+            </td>
+            <td>
+                [% Data.CustomerCompanyName | html %]
+            </td>
+[% RenderBlockStart("ContentLargeCustomerIDListRowCustomerIDTicketsOpen") %]
+            <td>
+                <a href="[% Env("Baselink") %]Action=AgentTicketSearch;Subaction=Search;StateType=Open;CustomerID=[% Data.CustomerIDSQL | uri %]" title="[% Translate("%s open ticket(s) of %s", Data.Count, Data.CustomerID) | html %]" class="AsBlock">
+                    [% Data.Count | html %]
+                </a>
+            </td>
+[% RenderBlockEnd("ContentLargeCustomerIDListRowCustomerIDTicketsOpen") %]
+[% RenderBlockStart("ContentLargeCustomerIDListRowCustomerIDTicketsClosed") %]
+            <td>
+                <a href="[% Env("Baselink") %]Action=AgentTicketSearch;Subaction=Search;StateType=Closed;CustomerID=[% Data.CustomerIDSQL | uri %]" title="[% Translate("%s closed ticket(s) of %s", Data.Count, Data.CustomerID) | html %]" class="AsBlock">
+                    [% Data.Count | html %]
+                </a>
+            </td>
+[% RenderBlockEnd("ContentLargeCustomerIDListRowCustomerIDTicketsClosed") %]
+            <td class="Center">
+            [% IF Data.EditCustomerIDPermission %]
+                <a href="[% Env("Baselink") %]Action=AdminCustomerCompany;Subaction=Change;CustomerID=[% Data.CustomerID | uri %];Nav=Agent" title="[% Translate("Edit customer ID") | html %]">
+                    <i class="fa fa-pencil-square-o"></i>
+                </a>
+            [% END %]
+            </td>
+        </tr>
+[% RenderBlockEnd("ContentLargeCustomerIDListRow") %]
+[% RenderBlockStart("ContentLargeCustomerIDListNone") %]
+        <tr>
+            <td>
+                [% Translate("none") | html %]
+            </td>
+        </tr>
+[% RenderBlockEnd("ContentLargeCustomerIDListNone") %]
+    </tbody>
+</table>

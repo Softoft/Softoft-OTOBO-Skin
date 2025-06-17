@@ -1,0 +1,112 @@
+# --
+# OTOBO is a web-based ticketing system for service organisations.
+# --
+# Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
+# Copyright (C) 2019-2024 Rother OSS GmbH, https://otobo.io/
+# --
+# This program is free software: you can redistribute it and/or modify it under
+# the terms of the GNU General Public License as published by the Free Software
+# Foundation, either version 3 of the License, or (at your option) any later version.
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <https://www.gnu.org/licenses/>.
+# --
+
+<div class="MainBox ARIARoleMain LayoutFixedSidebar SidebarFirst">
+
+    <h1 class="InvisibleText">[% Translate("System configuration") | html %]</h1>
+
+    [% IF Config("ConfigImportAllowed") %]
+        [% ImportExportName = Translate('Import & Export') %]
+    [% ELSE %]
+        [% ImportExportName = Translate('Export') %]
+    [% END %]
+
+    [% BreadcrumbPath = [
+            {
+                Name => Translate('System Configuration'),
+                Link => 'AdminSystemConfiguration',
+            },
+            {
+                Name => ImportExportName,
+                Link => Env("Action") _ ';Subaction=' _ Env("Subaction")
+            },
+        ]
+    %]
+
+    [% INCLUDE "Breadcrumb.tt" Path = BreadcrumbPath %]
+
+    <div class="SidebarColumn">
+        <div class="WidgetSimple">
+            <div class="Header">
+                <h2>[% Translate("Actions") | html %]</h2>
+            </div>
+            <div class="Content">
+                <ul class="ActionList">
+                    <li>
+                        <a href="[% Env("Baselink") %]Action=AdminSystemConfiguration" class="CallForAction Fullsize Center"><span><i class="fa fa-caret-left"></i>[% Translate("Go back") | html %]</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="ContentColumn LayoutGrid ColumnsWithSpacing">
+        [% IF Config("ConfigImportAllowed") %]
+        <div class="Size1of2">
+            <div class="WidgetSimple">
+                <div class="Header">
+                    <h2>[% Translate("Import") | html %]</h2>
+                </div>
+                <div class="Content">
+                    <form action="[% Env("CGIHandle") %]" method="post" enctype="multipart/form-data" class="Validate PreventMultipleSubmits ImportExport">
+                        <fieldset class="Separated">
+                            <input type="hidden" name="Action" value="[% Env("Action") %]"/>
+                            <input type="hidden" name="Subaction" value="ConfigurationImport"/>
+                            <input type="hidden" name="FormID" value="[% Data.FormID | html %]"/>
+                            <p class="FieldExplanation">
+                                [% Translate("Upload a file to be imported to your system (.yml format as exported from the System Configuration module).") | html %]
+                            </p>
+                            <input name="FileUpload" id="FileUpload" type="file" size="18" class="Fixed W100pc Validate_Required [% Data.FileUploadInvalid | html %]"/>
+                            <div id="FileUploadError" class="TooltipErrorMessage"><p>[% Translate("This field is required.") | html %]</p></div>
+                            <div id="FileUploadServerError" class="TooltipErrorMessage"><p>[% Translate("This field is required.") | html %]</p></div>
+                            <button id="ImportButton" class="CallForAction" type="submit" value="[% Translate("Upload system configuration") | html %]">
+                                <span><i class="fa fa-upload"></i>&nbsp; [% Translate("Import system configuration") | html %]</span>
+                            </button>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+        [% END %]
+        <div class="Size1of2">
+            <div class="WidgetSimple">
+                <div class="Header">
+                    <h2>[% Translate("Export") | html %]</h2>
+                </div>
+                <div class="Content">
+                    <form action="[% Env("CGIHandle") %]" method="post" enctype="multipart/form-data" class="Validate ImportExport">
+                        <fieldset class="Separated">
+                            <input type="hidden" name="Action" value="[% Env("Action") %]"/>
+                            <input type="hidden" name="Subaction" value="ConfigurationExport"/>
+                            <p class="FieldExplanation">
+                                [% Translate("Download current configuration settings of your system in a .yml file.") | html %]
+                            </p>
+
+                            <input type="checkbox" id="SkipUserSettings" name="SkipUserSettings" value="1" checked>
+                            <label for="SkipUserSettings">[% Translate("Include user settings") | html %]</label>
+                            <div class="Clear"> </div>
+
+                            <button id="ExportButton" class="CallForAction" type="submit" value="[% Translate("Upload system configuration") | html %]">
+                                <span><i class="fa fa-download"></i>&nbsp; [% Translate("Export current configuration") | html %]</span>
+                            </button>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="Clear"></div>
+</div>

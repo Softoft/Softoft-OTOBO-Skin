@@ -1,0 +1,131 @@
+# --
+# OTOBO is a web-based ticketing system for service organisations.
+# --
+# Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
+# Copyright (C) 2019-2024 Rother OSS GmbH, https://otobo.io/
+# --
+# This program is free software: you can redistribute it and/or modify it under
+# the terms of the GNU General Public License as published by the Free Software
+# Foundation, either version 3 of the License, or (at your option) any later version.
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <https://www.gnu.org/licenses/>.
+# --
+
+<div class="MainBox ARIARoleMain">
+[% RenderBlockStart("Message") %]
+    [% Data.Body %]
+[% RenderBlockEnd("Message") %]
+
+    <div class="W33pc SpacingTop SpacingBottom CenterBox">
+        <noscript>
+        <div class="WidgetSimple">
+            <div class="Header">
+                <h2 class="Center">[% Translate("JavaScript not available") | html %]</h2>
+            </div>
+            <div class="Content">
+                <p class="SpacingTop Center">
+                    [% Translate("In order to experience this software, you'll need to enable JavaScript in your browser.") | html %]
+                </p>
+            </div>
+        </div>
+        </noscript>
+    </div>
+
+[% RenderBlockStart("Steps") %]
+    <div class="Center">
+        <ul id="ProgressBar" class="ProgressBarElements[% Data.Steps | html %] SpacingTop SpacingBottom">
+[% RenderBlockStart("StepLicense") %]
+            <li class="First [% Data.Highlight | html %] [% Data.Active | html %]">
+                <span>
+                    <a href="#">[% Translate("Step %s", Data.Step) | html %]<span>[% Translate("License") | html %]</span></a>
+                </span>
+            </li>
+[% RenderBlockEnd("StepLicense") %]
+[% RenderBlockStart("StepDatabase") %]
+            <li class="[% Data.Highlight | html %] [% Data.Active | html %]">
+                <span>
+                    <a href="#">[% Translate("Step %s", Data.Step) | html %]<span>[% Translate("Database Settings") | html %]</span></a>
+                </span>
+            </li>
+[% RenderBlockEnd("StepDatabase") %]
+[% RenderBlockStart("StepGeneral") %]
+            <li class="[% Data.Highlight | html %] [% Data.Active | html %]">
+                <span>
+                    <a href="#">[% Translate("Step %s", Data.Step) | html %]<span>[% Translate("General Specifications and Mail Settings") | html %]</span></a>
+                </span>
+            </li>
+[% RenderBlockEnd("StepGeneral") %]
+[% RenderBlockStart("StepFinish") %]
+            <li class="Last [% Data.Highlight | html %] [% Data.Active | html %]">
+                <span>
+                    <a href="#">[% Translate("Step %s", Data.Step) | html %]<span>[% Translate("Finish") | html %]</span></a>
+                </span>
+            </li>
+[% RenderBlockEnd("StepFinish") %]
+        </ul>
+    </div>
+[% RenderBlockEnd("Steps") %]
+
+[% RenderBlockStart("Intro") %]
+    <div class="W950px SpacingTop SpacingBottom CenterBox">
+        <div class="WidgetSimple SpacingTop" id="WebInstallerBox">
+            <div class="Header">
+                <h2>[% Translate("Welcome to %s", Config("ProductName")) | html %]</h2>
+            </div>
+            <div class="LayoutGrid Content">
+                <div class="Size1of2">
+                    <h4>[% Translate("Germany") | html %]</h4>
+                    <p>Rother OSS GmbH</p>
+                    <p>Oberwalting 31</p>
+                    <p>94339 Leiblfing</p>
+                    <p>[% Translate("Phone") | html %]: <a href="tel:+4994276839000">+49 (0) 9427 68 39 000</a></p>
+                </div>
+                <div class="Size1of2">
+                    <h4>[% Translate("Germany") | html %]</h4>
+                    <p>Rother OSS GmbH</p>
+                    <p>Straubinger Straße 14</p>
+                    <p>94339 Leiblfing</p>
+                    <p>[% Translate("Phone") | html %]: <a href="tel:+4994276839000">+41 (0) 9427 68 39 000</a></p>
+                </div>
+            </div>
+            <div class="Clear"></div>
+            <div class="LayoutGrid Content">
+                <p>[% Translate("Web site") | html %]: <a href="http://otobo.io" target="_blank">otobo.io</a></p>
+                <p>[% Translate("Email") | html %]: <a href="mailto:hello@otobo.io">hello@otobo.io</a></p>
+            </div>
+            <div class="Clear"></div>
+        </div>
+        <div id="InstallerContinueWithJS" class="SpacingBottom Right">
+            <form action="[% Env("CGIHandle") %]" method="post" class="PreventMultipleSubmits">
+                <input type="hidden" name="Action" value="Installer">
+                <input type="hidden" name="Subaction" value="License">
+                <button class="Primary CallForAction" type="submit"><span>[% Translate("Next") | html %]</span></button>
+            </form>
+        </div>
+    </div>
+[% RenderBlockEnd("Intro") %]
+
+[% InsertTemplate("InstallerLicense.tt") %]
+
+[% InsertTemplate("InstallerDBStart.tt") %]
+
+[% InsertTemplate("InstallerDBmysql.tt") %]
+
+[% InsertTemplate("InstallerDBmssql.tt") %]
+
+[% InsertTemplate("InstallerDBoracle.tt") %]
+
+[% InsertTemplate("InstallerDBpostgresql.tt") %]
+
+[% InsertTemplate("InstallerDBResult.tt") %]
+
+[% InsertTemplate("InstallerSystem.tt") %]
+
+[% InsertTemplate("InstallerConfigureMail.tt") %]
+
+[% InsertTemplate("InstallerFinish.tt") %]
+
+</div>

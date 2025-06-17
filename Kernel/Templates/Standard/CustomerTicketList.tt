@@ -1,0 +1,67 @@
+# --
+# OTOBO is a web-based ticketing system for service organisations.
+# --
+# Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
+# Copyright (C) 2019-2024 Rother OSS GmbH, https://otobo.io/
+# --
+# This program is free software: you can redistribute it and/or modify it under
+# the terms of the GNU General Public License as published by the Free Software
+# Foundation, either version 3 of the License, or (at your option) any later version.
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <https://www.gnu.org/licenses/>.
+# --
+<div class="oooTicketList">
+[% RenderBlockStart("Ticket") %]
+    <a href="[% Env("Baselink") %]Action=CustomerTicketZoom;TicketNumber=[% Data.TicketNumber | uri %]" class="oooTicketListItem">
+        <div class="oooTicketItemDesc">
+            <h3 class="oooTIDTitle">[% Data.Subject | html %]</h3>
+            <p class="oooTIDNumber ooo12g">[% Config('Ticket::Hook') %][% Config('Ticket::HookDivider') %][% Data.TicketNumber | html %]</p>
+        </div>
+        <div class="oooTicketItemCat">
+            <div class="oooRow1"></div>
+            <div class="oooRow2"></div>
+[% RenderBlockStart("Categories") %]
+            [% IF Data.Config.Translate %]
+                <p class="oooCategory ooo10" style="background-color:[% Data.Color | html %]">[% IF Data.Config.Prefix %][% Data.Config.Prefix | html %][% END %][% Data.Text | Interpolate | Translate | html %]</p>
+            [% ELSE %]
+                <p class="oooCategory ooo10" style="background-color:[% Data.Color | html %]">[% IF Data.Config.Prefix %][% Data.Config.Prefix | html %][% END %][% Data.Text | Interpolate | html %]</p>
+            [% END %]
+[% RenderBlockEnd("Categories") %]
+        </div>
+        <div class="oooTicketItemAvatar">
+            [% IF Data.Avatar %]
+                <img src="[% Data.Avatar %]" />
+            [% ELSE %]
+                <span class="Initials">[% Data.UserInitials | html %]</span>
+            [% END %]
+        </div>
+        <p class="oooTicketItemOwner ooo10g">[% Data.CustomerName | html %]</p>
+        <p class="oooTicketItemAge ooo10g">[% Data.CustomerAge | html %]</p>
+        <h3 class="oooTicketItemInfo"></h3>
+    </a>
+[% RenderBlockEnd("Ticket") %]
+# no Tickets present:
+# customer has no tickets at all
+[% RenderBlockStart("EmptyDefault") %]
+    <a href="[% Env("Baselink") %]Action=CustomerTicketMessage" class="oooTicketListMessage">
+        <h3>[% Translate("Welcome!") | html %]</h3>
+        <p>[% Translate("You have no tickets yet. Please click here, to create a new one.") | html %]</p>
+    </a>
+[% RenderBlockEnd("EmptyDefault") %]
+[% RenderBlockStart("EmptyCustom") %]
+    <a href="[% Env("Baselink") %]Action=CustomerTicketMessage" class="oooTicketListMessage">
+        <h3>[% Translate(Data.Title) | html %]</h3>
+        <p>[% Translate(Data.Text) | html %]</p>
+    </a>
+[% RenderBlockEnd("EmptyCustom") %]
+# customer has no tickets with the current filters
+[% RenderBlockStart("EmptyFilter") %]
+    <a href="[% Env("Baselink") %]Action=CustomerTicketOverview;Subaction=MyTickets;Filter=All;SortBy=;OrderBy=;" class="oooTicketListMessage">
+        <h3>[% Translate("Nothing to show.") | html %]</h3>
+        <p>[% Translate("Click here for an unfiltered list of all your tickets.") | html %]</p>
+    </a>
+[% RenderBlockEnd("EmptyFilter") %]
+</div>
